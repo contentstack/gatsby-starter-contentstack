@@ -7,7 +7,7 @@ This is a quick, step-by-step starter guide to help you create a sample website 
 
 ## Prerequisites
 
-- Install [js](https://nodejs.org/en/) on your system.
+- Install [nodejs](https://nodejs.org/en/) on your system.
 - Install Gatsby CLI.  
 
 `npm install --save gatsby-source-contentstack`
@@ -106,5 +106,5 @@ This will display the title of your home page on [http://localhost:8000/home](ht
 
 **More resources:**
 
-- --[Contentstack documentation](https://www.contentstack.com/docs/)
-- --[Contentstack + Gatsby app tutorial](https://www.contentstack.com/docs/example-apps/build-a-static-website-using-gatsby-and-contentstack)
+- [Contentstack documentation](https://www.contentstack.com/docs/)
+- [Contentstack + Gatsby app tutorial](https://www.contentstack.com/docs/example-apps/build-a-static-website-using-gatsby-and-contentstack)
