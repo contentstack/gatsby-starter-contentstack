@@ -10,7 +10,7 @@ This is a quick, step-by-step starter guide to help you create a sample website 
 - Install [nodejs](https://nodejs.org/en/) on your system.
 - Install Gatsby CLI.  
 
-`npm install --save gatsby-source-contentstack`
+`npm install -g gatsby-cli`
 
 ## Step 1: Clone the repo
 
