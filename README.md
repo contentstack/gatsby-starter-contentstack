@@ -46,7 +46,7 @@ plugins: [
 ```
 ## Create pages
 
-You can now create pages for your website. Refer to our [Contentstack Gatsby starter tutorial](http://www.contentstack.com/docs/example-apps/contentstack-gatsby-starter) to learn how to create content for your pages. 
+You can now create pages for your website. Refer to our [Contentstack Gatsby starter tutorial](https://www.contentstack.com/docs/example-apps/getting-started-with-gatsby-and-contentstack) to learn how to create content for your pages. 
 
 
 
