@@ -46,4 +46,4 @@ You can now create pages for your website. Refer to our [Contentstack Gatsby sta
 **More resources:**
 
 - [Contentstack documentation](https://www.contentstack.com/docs/)
-- [Contentstack + Gatsby app tutorial](https://www.contentstack.com/docs/example-apps/build-a-static-website-using-gatsby-and-contentstack)
+- [Contentstack + Gatsby app tutorial](https://www.contentstack.com/docs/developers/sample-apps/build-a-sample-website-using-gatsby-and-contentstack)
