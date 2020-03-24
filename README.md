@@ -33,7 +33,7 @@ It should end up looking something like:
 
 ```
 CONTENTSTACK_API_KEY='hunter2'
-CONTENTSTACK_ACCESS_TOKEN='hunter2token'
+CONTENTSTACK_DELIVERY_TOKEN='hunter2token'
 CONTENTSTACK_ENVIRONMENT='development' # or production, staging, etc.
 ```
 
