@@ -28,7 +28,7 @@ module.exports = {
         // Optional: expediteBuild set this to either true or false
         'expediteBuild': `true`,
         // Optional: Specify true if you want to generate custom schema
-        'enableSchemaGenenation' : `true`,
+        'enableSchemaGeneration' : `true`,
         // Optional: Specify a different prefix for types. This is useful in cases where you have multiple instances of the plugin to be connected to different stacks.
         'type_prefix': `Contentstack`, // (default)
       },
