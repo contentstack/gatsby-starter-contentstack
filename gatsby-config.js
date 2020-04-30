@@ -1,7 +1,6 @@
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
 })
-
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Contentstack starter',
@@ -25,7 +24,13 @@ module.exports = {
       options:{
         'api_key': process.env.CONTENTSTACK_API_KEY,
         'delivery_token': process.env.CONTENTSTACK_DELIVERY_TOKEN,
-        'environment': process.env.CONTENTSTACK_ENVIRONMENT
+        'environment': process.env.CONTENTSTACK_ENVIRONMENT,
+        // Optional: expediteBuild set this to either true or false
+        'expediteBuild': `true`,
+        // Optional: Specify true if you want to generate custom schema
+        'enableSchemaGenenation' : `true`,
+        // Optional: Specify a different prefix for types. This is useful in cases where you have multiple instances of the plugin to be connected to different stacks.
+        'type_prefix': `Contentstack`, // (default)
       },
     },
     'gatsby-plugin-offline',
