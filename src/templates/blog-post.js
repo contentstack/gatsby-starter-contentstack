@@ -43,8 +43,11 @@ export default function Blogpost({ data }) {
       </div>
     )
   }
-  function createSocialNetwork(data) {
-    return <div className="embededCodes" dangerouslySetInnerHTML={{__html:data}}></div>
+  function createSocialNetwork(data) {  
+    return <div className="embededSocialCode">
+      <h2 className="socialTitle">Social Network</h2>
+  {data.map((quote,i) =>{return <div className="singleQuotes" key={i}  dangerouslySetInnerHTML={{ __html: quote }}/>})}
+    </div>
   }
   return (
     <Layout>
@@ -122,6 +125,9 @@ export const postQuery = graphql`
                 uid
                 filename
               }
+            }
+            social_network_embed {
+              embed_code
             }
           }
         }

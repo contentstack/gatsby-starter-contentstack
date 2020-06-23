@@ -1,16 +1,17 @@
 {
-  "name": "gatsby-starter-contentstack",
+  "name": "@contentstack/gatsby-starter-contentstack",
   "description": "Gatsby Contentstack starter",
+  "author": "Contentstack",
   "version": "1.0.1",
   "dependencies": {
-    "gatsby": "^2.8.5",
-    "gatsby-plugin-manifest": "^2.3.2",
-    "gatsby-plugin-offline": "^2.0.5",
-    "gatsby-plugin-react-helmet": "^3.0.0",
+    "gatsby": "2.23.9",
+    "gatsby-plugin-manifest": "2.4.13",
+    "gatsby-plugin-offline": "3.2.12",
+    "gatsby-plugin-react-helmet": " 3.3.5",
     "gatsby-source-contentstack": "^2.2.3",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "react-helmet": "^5.2.0",
+    "react-helmet": "^6.1.0",
     "react-responsive-carousel": "^3.2.8"
   },
   "keywords": [
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "dotenv": "^8.0.0",
-    "prettier": "^1.14.2"
+    "prettier": "^2.0.5"
   },
   "repository": {
     "type": "git",
