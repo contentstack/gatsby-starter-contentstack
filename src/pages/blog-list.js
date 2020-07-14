@@ -1,18 +1,22 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import '../style/css/style.css'
 import Layout from '../components/layout'
+import Img from "gatsby-image/withIEPolyfill"
 
-const SecondPage = props => {
+const SecondPage = (props) => {
   let data = props.data.contentstackBlogPosts
+  console.log(data)
   return (
     <Layout>
       <div className="container">
         <div className="heroBanner">
-          <img
-            className="bannerImage"
-            src={data.hero_banner[0].banner_title_only.image.url}
-            alt={data.hero_banner[0].banner_title_only.image.filename}
+          <Img
+          fixed={data.hero_banner[0].banner_title_only.image.localAsset.childImageSharp.fixed}
+          objectFit="cover"
+          className="bannerImage"
+          style={{width:"100%"}}
+          alt={data.hero_banner[0].banner_title_only.image.filename}
           />
         </div>
         <div className="bloglistContainer">
@@ -21,12 +25,12 @@ const SecondPage = props => {
               <div className="bloglist" key={idx}>
                 <div className="leftSection">
                   <div>
-                    <img
-                      className="listImages"
-                      src={list.blog_list.blog_image.url}
-                      alt={list.blog_list.blog_image.filename}
+                    <Img
+                    fixed={list.blog_list.blog_image.localAsset.childImageSharp.fixed}
+                    style={{width:"95%"}}
+                    alt={list.blog_list.blog_image.filename}
                     />
-                  </div>{' '}
+                  </div>
                 </div>
                 <div className="rightSection">
                   <div
@@ -53,24 +57,31 @@ export const pageQuery = graphql`
   {
     contentstackBlogPosts(url: { eq: "/blog-list" }) {
       title
-      url
       hero_banner {
         banner_title_only {
-          image {
-            url
-            uid
-            filename
-          }
           title
+          image {
+            localAsset {
+              childImageSharp {
+                fixed(height: 500) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
+          }
         }
       }
       modular_blocks {
         blog_list {
           blog_details
           blog_image {
-            url
-            filename
-            uid
+            localAsset {
+              childImageSharp {
+                fixed(height: 240) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
           }
           cta {
             href

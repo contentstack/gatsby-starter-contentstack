@@ -1,18 +1,21 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
+import Img from 'gatsby-image'
 import 'react-responsive-carousel/lib/styles/carousel.css'
 
 var Carousel = require('react-responsive-carousel').Carousel
 export default function Blogpost({ data }) {
   let result = data.contentstackBlogPosts
   function createContent(data, idx) {
-    return <div key={idx} dangerouslySetInnerHTML={{ __html: data }}></div>
+    return <div key={idx} dangerouslySetInnerHTML={{ __html: data }} className="blogPostContent"></div>
   }
-  function createCarousel(images) {
+  function createCarousel(images,id) {
     return (
+      <div key={id} className="imageCarousel">
+        <h2 className ="slideShowTitle">Slide Show</h2>
+      
       <Carousel
-        showArrows={true}
         showThumbs={false}
         infiniteLoop={true}
         thumbWidth="200px"
@@ -20,22 +23,25 @@ export default function Blogpost({ data }) {
       >
         {images.map((image, idx) => {
           return (
-            <div key={idx} height="200px" width="200px">
-              <img
-                src={image.url}
-                alt={image.filename}
-                width="200px"
-                height="350px"
+              <Img
+               fluid={
+                image.localAsset.childImageSharp.fluid
+              }
+              key={'K'*idx}
+              className="bannerImage"
+              style={{ width: '100%', height: '350px' }}
+              alt={image.filename}
               />
-            </div>
           )
         })}
       </Carousel>
+      </div>
     )
   }
-  function createQuotes(data) {
+  function createQuotes(data,id) {
     return (
-      <div className="blogQuotes">
+      <div className="blogQuotes" key={id}>
+        <h2 className="quotesTitle">Blog Quotes</h2>
         <blockquote
           className="otro-blockquote"
           dangerouslySetInnerHTML={{ __html: data }}
@@ -43,38 +49,52 @@ export default function Blogpost({ data }) {
       </div>
     )
   }
-  function createSocialNetwork(data) {  
-    return <div className="embededSocialCode">
-      <h2 className="socialTitle">Social Network</h2>
-  {data.map((quote,i) =>{return <div className="singleQuotes" key={i}  dangerouslySetInnerHTML={{ __html: quote }}/>})}
-    </div>
+  function createSocialNetwork(data,id) {
+    return (
+      <div className="embededSocialCode" key={id}>
+        <h2 className="socialTitle">Social Network</h2>
+        {data.map((quote, i) => {
+          return (
+            <div
+              className="singleQuotes"
+              key={i}
+              dangerouslySetInnerHTML={{ __html: quote }}
+            />
+          )
+        })}
+      </div>
+    )
   }
   return (
     <Layout>
       <div className="container">
         <div className="heroBanner">
-          <img
+          <Img
+            fluid={
+              result.hero_banner[0].banner_title_only.image.localAsset
+                .childImageSharp.fluid
+            }
+            objectFit="cover"
             className="bannerImage"
-            src={result.hero_banner[0].banner_title_only.image.url}
+            style={{ width: '100%', height: '550px' }}
             alt={result.hero_banner[0].banner_title_only.image.filename}
-            height="550px"
           />
         </div>
         <div className="blogContent">
           <h2 className="blog-title">{result.title}</h2>
           {result.modular_blocks[0].blog_post_page.blog_post.map((post, id) => {
-            return Object.entries(post).map((data, idx) => {
+            return Object.entries(post).map(function (data, idx) {
               if (data[0] === 'blog_content' && data[1] !== null) {
                 return createContent(data[1].blog_post_content, idx)
               }
               if (data[0] === 'image_carousel' && data[1] !== null) {
-                return createCarousel(data[1].image)
+                return createCarousel(data[1].image,idx)
               }
               if (data[0] === 'blog_quotes' && data[1] !== null) {
-                return createQuotes(data[1].quote)
+                return createQuotes(data[1].quote,idx)
               }
               if (data[0] === 'social_network_embed' && data[1] !== null) {
-                return createSocialNetwork(data[1].embed_code)
+                return createSocialNetwork(data[1].embed_code,idx)
               }
             })
           })}
@@ -92,9 +112,20 @@ export const postQuery = graphql`
         banner_title_only {
           title
           image {
-            url
-            uid
             filename
+            localAsset {
+              childImageSharp {
+                fluid(
+                  maxWidth: 1000
+                  quality: 100
+                  webpQuality: 10
+                  cropFocus: CENTER
+                  fit: COVER
+                ) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }
@@ -121,9 +152,13 @@ export const postQuery = graphql`
             }
             image_carousel {
               image {
-                url
-                uid
-                filename
+                localAsset {
+                  childImageSharp {
+                    fluid(quality: 100, webpQuality: 10) {
+                  ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
               }
             }
             social_network_embed {
