@@ -1,7 +1,16 @@
+[![Contentstack](https://www.contentstack.com/assets/blt440aad5a09c89b2f/contentstack_icon.svg)](https://www.contentstack.com/)
 
-# gatsby-starter-contentstack
 
-A starter project for building a websites using Contentstack and Gatsby 
+# Create a marketing website using Gatsby
+
+About Contentstack: Contentstack is a headless CMS with an API-first approach that puts content at the centre. It is designed to simplify the process of publication by separating code from content.
+
+About this project: Create professional marketing-themed website using Gatsby.
+
+
+## Live Demo
+
+You can check the [live demo](https://contentstack-gatsby-starter.herokuapp.com/) to get first-hand experience of the website.
 
 ## Prerequisites
 
@@ -27,20 +36,21 @@ This downloads the required files and initializes the site.
 
 ## Update Contentstack secrets
 
-Copy the `.env.sample` file to `.env.development` and `.env.production` and update with your Contentstack details, including your API key and access token.
+Copy the `.env.sample` file to `.env.development` and `.env.production` and update with your Contentstack details, including your API key and delivery token.
 
 It should end up looking something like:
 
 ```
 CONTENTSTACK_API_KEY='hunter2'
 CONTENTSTACK_DELIVERY_TOKEN='hunter2token'
-CONTENTSTACK_ENVIRONMENT='development' # or production, staging, etc.
+CONTENTSTACK_ENVIRONMENT='publishing environment'
 ```
 
-## Create pages
+## Tutorial
 
-You can now create pages for your website. Refer to our [Contentstack Gatsby starter tutorial](https://www.contentstack.com/docs/example-apps/getting-started-with-gatsby-and-contentstack) to learn how to create content for your pages. 
+We have created an in-depth tutorial on how you can create a website using Gatsby. By following the steps given in the tutorial, design a website similar to the one given in the demo.
 
+[Create a marketing website using Gatsby](https://www.contentstack.com/docs/example-apps/getting-started-with-gatsby-and-contentstack/)
 
 
 **More resources:**
