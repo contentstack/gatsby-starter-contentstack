@@ -2,33 +2,26 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import '../style/css/style.css'
 import Layout from '../components/layout'
-import Img from "gatsby-image/withIEPolyfill"
+import Img from 'gatsby-image/withIEPolyfill'
 
 const SecondPage = (props) => {
   let data = props.data.contentstackBlogPosts
-  console.log(data)
   return (
-    <Layout>
-      <div className="container">
-        <div className="heroBanner">
-          <Img
-          fixed={data.hero_banner[0].banner_title_only.image.localAsset.childImageSharp.fixed}
-          objectFit="cover"
-          className="bannerImage"
-          style={{width:"100%"}}
-          alt={data.hero_banner[0].banner_title_only.image.filename}
-          />
-        </div>
+    <Layout header={data.header} footer={data.footer} seo={data.seo}>
+      <div className="blogContainer">
         <div className="bloglistContainer">
           {data.modular_blocks.map((list, idx) => {
             return (
-              <div className="bloglist" key={idx}>
+              <div className="blogs" key={idx}>
                 <div className="leftSection">
                   <div>
                     <Img
-                    fixed={list.blog_list.blog_image.localAsset.childImageSharp.fixed}
-                    style={{width:"95%"}}
-                    alt={list.blog_list.blog_image.filename}
+                      fixed={
+                        list.blog_list.blog_image.localAsset.childImageSharp
+                          .fixed
+                      }
+                      style={{ width: '95%' }}
+                      alt={list.blog_list.blog_image.filename}
                     />
                   </div>
                 </div>
@@ -57,6 +50,20 @@ export const pageQuery = graphql`
   {
     contentstackBlogPosts(url: { eq: "/blog-list" }) {
       title
+      header {
+        title
+        menu {
+          link {
+            title
+            href
+          }
+        }
+      }
+      seo {
+        meta_title
+        description
+        keywords
+      }
       hero_banner {
         banner_title_only {
           title
@@ -88,6 +95,24 @@ export const pageQuery = graphql`
             title
           }
         }
+      }
+      footer {
+        title
+        group {
+          title
+          address
+        }
+        social {
+          title
+          social_links {
+            link {
+              title
+              href
+            }
+            fontawesome_class
+          }
+        }
+        copyright
       }
     }
   }

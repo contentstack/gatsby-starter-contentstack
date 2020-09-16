@@ -8,37 +8,35 @@ var Carousel = require('react-responsive-carousel').Carousel
 export default function Blogpost({ data }) {
   let result = data.contentstackBlogPosts
   function createContent(data, idx) {
-    return <div key={idx} dangerouslySetInnerHTML={{ __html: data }} className="blogPostContent"></div>
+    return (
+      <div
+        key={idx}
+        dangerouslySetInnerHTML={{ __html: data }}
+        className="blogPostContent"
+      ></div>
+    )
   }
-  function createCarousel(images,id) {
+  function createCarousel(images, id) {
     return (
       <div key={id} className="imageCarousel">
-        <h2 className ="slideShowTitle">Slide Show</h2>
-      
-      <Carousel
-        showThumbs={false}
-        infiniteLoop={true}
-        thumbWidth="200px"
-        showArrows={true}
-      >
-        {images.map((image, idx) => {
-          return (
+        <h2 className="slideShowTitle">Slide Show</h2>
+
+        <Carousel showThumbs={false} infiniteLoop={true} showArrows={true}>
+          {images.map((image, idx) => {
+            return (
               <Img
-               fluid={
-                image.localAsset.childImageSharp.fluid
-              }
-              key={'K'*idx}
-              className="bannerImage"
-              style={{ width: '100%', height: '350px' }}
-              alt={image.filename}
+                fluid={image.localAsset.childImageSharp.fluid}
+                key={'K' * idx}
+                style={{ width: '100%', height: '400px' }}
+                alt={image.filename}
               />
-          )
-        })}
-      </Carousel>
+            )
+          })}
+        </Carousel>
       </div>
     )
   }
-  function createQuotes(data,id) {
+  function createQuotes(data, id) {
     return (
       <div className="blogQuotes" key={id}>
         <h2 className="quotesTitle">Blog Quotes</h2>
@@ -49,7 +47,7 @@ export default function Blogpost({ data }) {
       </div>
     )
   }
-  function createSocialNetwork(data,id) {
+  function createSocialNetwork(data, id) {
     return (
       <div className="embededSocialCode" key={id}>
         <h2 className="socialTitle">Social Network</h2>
@@ -66,8 +64,8 @@ export default function Blogpost({ data }) {
     )
   }
   return (
-    <Layout>
-      <div className="container">
+    <Layout header={result.header} footer={result.footer} seo={result.seo}>
+      <div className="blogContainer">
         <div className="heroBanner">
           <Img
             fluid={
@@ -76,7 +74,7 @@ export default function Blogpost({ data }) {
             }
             objectFit="cover"
             className="bannerImage"
-            style={{ width: '100%', height: '550px' }}
+            style={{ width: '80%', height: '500px' }}
             alt={result.hero_banner[0].banner_title_only.image.filename}
           />
         </div>
@@ -88,13 +86,13 @@ export default function Blogpost({ data }) {
                 return createContent(data[1].blog_post_content, idx)
               }
               if (data[0] === 'image_carousel' && data[1] !== null) {
-                return createCarousel(data[1].image,idx)
+                return createCarousel(data[1].image, idx)
               }
               if (data[0] === 'blog_quotes' && data[1] !== null) {
-                return createQuotes(data[1].quote,idx)
+                return createQuotes(data[1].quote, idx)
               }
               if (data[0] === 'social_network_embed' && data[1] !== null) {
-                return createSocialNetwork(data[1].embed_code,idx)
+                return createSocialNetwork(data[1].embed_code, idx)
               }
             })
           })}
@@ -108,6 +106,20 @@ export const postQuery = graphql`
     contentstackBlogPosts(title: { eq: $title }) {
       title
       url
+      header {
+        title
+        menu {
+          link {
+            title
+            href
+          }
+        }
+      }
+      seo {
+        meta_title
+        description
+        keywords
+      }
       hero_banner {
         banner_title_only {
           title
@@ -155,7 +167,7 @@ export const postQuery = graphql`
                 localAsset {
                   childImageSharp {
                     fluid(quality: 100, webpQuality: 10) {
-                  ...GatsbyImageSharpFluid
+                      ...GatsbyImageSharpFluid
                     }
                   }
                 }
@@ -166,6 +178,24 @@ export const postQuery = graphql`
             }
           }
         }
+      }
+      footer {
+        title
+        group {
+          title
+          address
+        }
+        social {
+          title
+          social_links {
+            link {
+              title
+              href
+            }
+            fontawesome_class
+          }
+        }
+        copyright
       }
     }
   }

@@ -1,42 +1,31 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
 
 import Header from './header'
+import Footer from './footer'
 import './layout.css'
 
-const Layout = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `}
-    render={data => (
+export default class Layout extends React.Component {
+  render() {
+    return (
       <>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div style={{ marginTop: '-28px' }}>{children}</div>
+        {this.props.seo ? (
+          <Helmet
+            title={this.props.seo.meta_title}
+            meta={[
+              { name: 'description', content: this.props.seo.description },
+              { name: 'keywords', content: this.props.seo.keywords },
+            ]}
+          >
+            <html lang="en" />
+          </Helmet>
+        ) : (
+          ''
+        )}
+        {this.props.header[0] ? <Header header={this.props.header[0]} /> : ''}
+        <main>{this.props.children}</main>
+        {this.props.footer[0] ? <Footer footer={this.props.footer[0]} /> : ''}
       </>
-    )}
-  />
-)
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+    )
+  }
 }
-
-export default Layout
