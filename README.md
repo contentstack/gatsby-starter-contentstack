@@ -7,6 +7,9 @@ About Contentstack: Contentstack is a headless CMS with an API-first approach th
 
 About this project: Create professional marketing-themed website using Gatsby.
 
+<img src='https://images.contentstack.io/v3/assets/blt17537f14dafb140d/blt0de852ecba3b1ea3/5f6225e021ecf947895da51e/gatsby-starter-home.png' width='650' height='550'/>
+<img src='https://images.contentstack.io/v3/assets/blt17537f14dafb140d/blt42db5af5d6879514/5f6225e5b038186a244b8af0/gatsby-starter-blogs.png' width='650' height='550'/>
+
 
 ## Live Demo
 
