@@ -1,0 +1,134 @@
+    .bannerImage {
+      display: block;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    .blog-title, .socialTitle, .slideShowTitle, .quotesTitle {
+      padding: 30px 0 10px 0;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .bloglistContainer {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: center;
+      margin: 0 20%;
+      margin-top: 20px;
+    }
+
+    .blogPostContent {
+      margin: 16px;
+      text-align: center;
+    }
+
+    .blogContent {
+      width: 70%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .bloglist {
+      height: 280px;
+      width: 800px;
+      margin: 5px;
+      padding: 10px;
+      border-top: 1px solid rgb(230, 224, 224);
+    }
+
+    .bloglist:after {
+      content: " ";
+      visibility: hidden;
+      display: block;
+      height: 0;
+      clear: both;
+    }
+
+    .leftSection {
+      float: left;
+      width: 40%;
+      margin: 0 0 0 0;
+    }
+
+    .rightSection {
+      float: left;
+      width: 60%;
+    }
+
+    .listImages {
+      height: 240px;
+      width: 95%;
+    }
+
+    .postLink {
+      display: block;
+      margin-top: -18px;
+      text-decoration: none;
+      color: #533dc0;
+      cursor: pointer;
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic);
+    .otro-blockquote {
+      width: 70%;
+      margin: 50px auto;
+      color: #555555;
+      padding: 1.2em 30px 1.2em 75px;
+      border-left: 8px solid rebeccapurple;
+      line-height: 1.6;
+      position: relative;
+      background: #EDEDED;
+    }
+
+    .blogpostImage {
+      display: block;
+      margin: 0 auto;
+      width: 80%;
+      height: 500px;
+      margin-top: -25px;
+      padding: 12px 12px;
+    }
+
+    .otro-blockquote::before {
+      position: absolute;
+      left: 10px;
+      top: -10px;
+    }
+
+    .otro-blockquote::after {
+      content: '';
+    }
+
+    .quoteIcon {
+      margin-left: -58px;
+      margin-bottom: -35px;
+    }
+
+    .singleQuotes {
+      display: block;
+      margin-left: 25%;
+      height: auto;
+    }
+
+    .footer-col {
+      color: #fff;
+    }
+
+    .sociallinks-li {
+      display: inline;
+      text-decoration: none;
+      list-style: none;
+      padding: 10px;
+    }
+
+    i {
+      color: #fff;
+      border: 2px solid #fff;
+      padding: 10px;
+      border-radius: 50%;
+    }
+
+    .copyrights {
+      color: #fff;
+    }

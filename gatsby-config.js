@@ -16,9 +16,17 @@ module.exports = {
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/contentstack-logo.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/`,
+      },
+    },
+     `gatsby-plugin-sharp`,`gatsby-transformer-sharp`,
+  
     {
       resolve: 'gatsby-source-contentstack',
       options:{
@@ -31,6 +39,7 @@ module.exports = {
         'enableSchemaGeneration' : true,
         // Optional: Specify a different prefix for types. This is useful in cases where you have multiple instances of the plugin to be connected to different stacks.
         'type_prefix': `Contentstack`, // (default)
+        'downloadAssets': true
       },
     },
     'gatsby-plugin-offline',
