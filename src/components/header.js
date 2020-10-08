@@ -1,31 +1,30 @@
 import React from 'react'
 import { Link } from 'gatsby'
 
-const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      background: 'rebeccapurple',
-      marginBottom: '1.45rem',
-    }}
-  >
+const Header = ({ header }) => (
+  <div className="header">
+    {console.log(header)}
     <div
       style={{
+        display: 'block',
         margin: '0 auto',
-        maxWidth: 960,
-        padding: '1.45rem 1.0875rem',
+        maxWidth: '960px',
+        padding: '0.55rem 2.0875rem',
       }}
     >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: 'white',
-            textDecoration: 'none',
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
+      <div className="display-flex">
+        {header.menu.map(function (nav, idx) {
+          return (
+            <Link
+              className="float-left margin-left"
+              to={nav.link.href}
+              key={idx}
+            >
+              {nav.link.title}
+            </Link>
+          )
+        })}
+      </div>
     </div>
   </div>
 )

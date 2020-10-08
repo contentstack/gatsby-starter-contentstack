@@ -16,15 +16,24 @@ module.exports = {
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/contentstack-logo.png', // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/`,
+      },
+    },
+     `gatsby-plugin-sharp`,`gatsby-transformer-sharp`,
+  
     {
       resolve: 'gatsby-source-contentstack',
       options:{
         'api_key': process.env.CONTENTSTACK_API_KEY,
         'delivery_token': process.env.CONTENTSTACK_DELIVERY_TOKEN,
         'environment': process.env.CONTENTSTACK_ENVIRONMENT,
+        'cdn':process.env.CONTENTSTACK_CDN?process.env.CONTENTSTACK_CDN:'',
         // Optional: expediteBuild set this to either true or false
         'expediteBuild': true,
         // Optional: Specify true if you want to generate custom schema
