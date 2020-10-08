@@ -9,7 +9,6 @@ const IndexPage = ({ data }) => (
     footer={data.allContentstackFooter.nodes}
     seo={data.contentstackHome.seo}
   >
-    {console.log(data)}
     <div
       style={{
         margin: '0 auto',

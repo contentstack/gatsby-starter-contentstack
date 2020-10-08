@@ -6,7 +6,6 @@ import 'react-responsive-carousel/lib/styles/carousel.css'
 var Carousel = require('react-responsive-carousel').Carousel
 export default function Blogpost({ data }) {
   let result = data.contentstackBlogPosts
-  console.log(data)
   function dateSetter(params) {
     const date = new Date(params)
     const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)

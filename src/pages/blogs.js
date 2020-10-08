@@ -2,7 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import '../style/css/style.css'
 import Layout from '../components/layout'
-// import Img from 'gatsby-image/withIEPolyfill'
 
 function dateSetter(params) {
   const date = new Date(params)
@@ -14,7 +13,6 @@ function dateSetter(params) {
 
 const SecondPage = (props) => {
   let data = props.data
-  console.log(data)
   return (
     <Layout
       header={data.allContentstackHeader.nodes}
