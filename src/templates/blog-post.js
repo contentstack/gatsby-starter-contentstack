@@ -1,74 +1,77 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import Layout from '../components/layout'
-import 'react-responsive-carousel/lib/styles/carousel.css'
+/* eslint-disable array-callback-return */
+/* eslint-disable consistent-return */
+/* eslint-disable no-shadow */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-danger */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout';
+import 'react-responsive-carousel/lib/styles/carousel.css';
 
-var Carousel = require('react-responsive-carousel').Carousel
+const { Carousel } = require('react-responsive-carousel');
+
 export default function Blogpost({ data }) {
-  let result = data.contentstackBlogPosts
+  const result = data.contentstackBlogPosts;
+
   function dateSetter(params) {
-    const date = new Date(params)
-    const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date)
-    const mm = new Intl.DateTimeFormat('en', { month: 'short' }).format(date)
-    const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date)
-    return `${mm}-${dd}-${yy}`
+    const date = new Date(params);
+    const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
+    const mm = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
+    const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+    return `${mm}-${dd}-${yy}`;
   }
 
-  function createContent(data, idx) {
+  function createContent(text, idx) {
     return (
       <div
         key={idx}
-        dangerouslySetInnerHTML={{ __html: data }}
+        dangerouslySetInnerHTML={{ __html: text }}
         className="blogPostContent"
-      ></div>
-    )
+      />
+    );
   }
   function createCarousel(images, id) {
     return (
       <div key={id} className="imageCarousel">
         <h2 className="slideShowTitle">Slide Show</h2>
 
-        <Carousel showThumbs={false} infiniteLoop={true} showArrows={true}>
-          {images.map((image, idx) => {
-            return (
-              <img
-                src={image.url}
-                key={'K' * idx}
-                style={{ width: '100%', height: '450px' }}
-                alt={image.filename}
-              />
-            )
-          })}
+        <Carousel showThumbs={false} infiniteLoop showArrows>
+          {images.map((image, idx) => (
+            <img
+              src={image.url}
+              key={'K' * idx}
+              style={{ width: '100%', height: '400px' }}
+              alt={image.filename}
+            />
+          ))}
         </Carousel>
       </div>
-    )
+    );
   }
-  function createQuotes(data, id) {
+  function createQuotes(quote, id) {
     return (
       <div className="blogQuotes" key={id}>
         <h2 className="quotesTitle">Blog Quotes</h2>
         <blockquote
           className="otro-blockquote"
-          dangerouslySetInnerHTML={{ __html: data }}
+          dangerouslySetInnerHTML={{ __html: quote }}
         />
       </div>
-    )
+    );
   }
-  function createSocialNetwork(data, id) {
+  function createSocialNetwork(code, id) {
     return (
       <div className="embededSocialCode" key={id}>
         <h2 className="socialTitle">Social Network</h2>
-        {data.map((quote, i) => {
-          return (
-            <div
-              className="singleQuotes"
-              key={i}
-              dangerouslySetInnerHTML={{ __html: quote }}
-            />
-          )
-        })}
+
+        <div
+          className="singleQuotes"
+          dangerouslySetInnerHTML={{ __html: code }}
+        />
       </div>
-    )
+    );
   }
   return (
     <Layout
@@ -81,9 +84,9 @@ export default function Blogpost({ data }) {
           <ul>
             <li>
               <img
-                src={result.hero_banner[0].banner_title_only.image.url}
+                src={result.hero_banner.banner_image.url}
                 className="bannerImage"
-                alt={result.hero_banner[0].banner_title_only.image.filename}
+                alt={result.hero_banner.banner_image.filename}
               />
               <div className="bannerContent">
                 <h1>{result.title}</h1>
@@ -91,80 +94,72 @@ export default function Blogpost({ data }) {
                   <span className="blogPostTimeStamp">
                     {dateSetter(result.created_at)}
                   </span>
-                  ,<span className="blogpost-author">{result.author}</span>
+                  ,
+                  <span className="blogpost-author">{result.author[0].title}</span>
                 </div>
               </div>
             </li>
           </ul>
         </div>
         <div className="blogContent">
-          {result.modular_blocks[0].blog_post_page.blog_post.map((post, id) => {
-            return Object.entries(post).map(function (data, idx) {
-              if (data[0] === 'blog_content' && data[1] !== null) {
-                return createContent(data[1].blog_post_content, idx)
-              }
-              if (data[0] === 'image_carousel' && data[1] !== null) {
-                return createCarousel(data[1].image, idx)
-              }
-              if (data[0] === 'blog_quotes' && data[1] !== null) {
-                return createQuotes(data[1].quote, idx)
-              }
-              if (data[0] === 'social_network_embed' && data[1] !== null) {
-                return createSocialNetwork(data[1].embed_code, idx)
-              }
-            })
-          })}
+          {result.blog_body.map((post) => Object.entries(post).map((data, idx) => {
+            if (data[0] === 'rich_text_editor' && data[1] !== null) {
+              return createContent(data[1].rich_text, idx);
+            }
+            if (data[0] === 'image_carousel' && data[1] !== null) {
+              return createCarousel(data[1].image, idx);
+            }
+            if (data[0] === 'quotes' && data[1] !== null) {
+              return createQuotes(data[1].quote, idx);
+            }
+            if (data[0] === 'social_network' && data[1] !== null) {
+              return createSocialNetwork(data[1].embedded_code, idx);
+            }
+          }))}
         </div>
       </div>
     </Layout>
-  )
+  );
 }
 export const postQuery = graphql`
   query($title: String!) {
     contentstackBlogPosts(title: { eq: $title }) {
-      title
       url
-      # author
+      title
       seo {
-        description
         keywords
+        description
         meta_title
       }
-      modular_blocks {
-        blog_post_page {
-          blog_post {
-            blog_content {
-              blog_post_content
-            }
-            blog_quotes {
-              quote
-              quote_author
-            }
-            image_carousel {
-              image {
-                url
-                filename
-              }
-            }
-            social_network_embed {
-              embed_code
-            }
-          }
+      hero_banner {
+        banner_title
+        banner_image {
+          url
+          filename
         }
       }
-      hero_banner {
-        banner_title_only {
-          title
+      blog_body {
+        image_carousel {
           image {
             url
             filename
           }
         }
+        quotes {
+          quote
+        }
+        rich_text_editor {
+          rich_text
+        }
+        social_network {
+          embedded_code
+        }
       }
-      author
-      created_at(formatString: "")
+      created_at(locale: "")
+      author {
+        title
+      }
     }
-    # }
     allContentstackFooter {
       nodes {
         title
@@ -197,4 +192,4 @@ export const postQuery = graphql`
       }
     }
   }
-`
+`;

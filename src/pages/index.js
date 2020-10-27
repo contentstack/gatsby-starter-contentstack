@@ -1,7 +1,11 @@
-import React from 'react'
-import { graphql } from 'gatsby'
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/no-danger */
+import React from 'react';
+import { graphql } from 'gatsby';
 
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 
 const IndexPage = ({ data }) => (
   <Layout
@@ -31,27 +35,25 @@ const IndexPage = ({ data }) => (
         </section>
         <section>
           <div className="article-list">
-            {data.contentstackHome.group.map(function (col, idx) {
-              return (
-                <div key={idx} className="article">
-                  <div>
-                    <div className="title">
-                      <h2>{col.title}</h2>
-                    </div>
-                    <div
-                      className="description"
-                      dangerouslySetInnerHTML={{ __html: col.description }}
-                    ></div>
+            {data.contentstackHome.group.map((col, idx) => (
+              <div key={idx} className="article">
+                <div>
+                  <div className="title">
+                    <h2>{col.title}</h2>
                   </div>
+                  <div
+                    className="description"
+                    dangerouslySetInnerHTML={{ __html: col.description }}
+                  />
                 </div>
-              )
-            })}
+              </div>
+            ))}
           </div>
         </section>
       </div>
     </div>
   </Layout>
-)
+);
 export const pageQuery = graphql`
   {
     contentstackHome {
@@ -103,6 +105,6 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default IndexPage
+export default IndexPage;

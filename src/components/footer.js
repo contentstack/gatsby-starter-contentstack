@@ -1,4 +1,8 @@
-import React from 'react'
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+import React from 'react';
+
 const Footer = ({ footer }) => (
 
   <div className="footer ">
@@ -12,18 +16,16 @@ const Footer = ({ footer }) => (
           <div className="footer-col col-md-4">
             <h3>{footer.social.title}</h3>
             <ul className="sociallinks-ul">
-              {footer.social.social_links.map(function (media, idx) {
-                return (
-                  <li key={idx} className="sociallinks-li">
-                    <a
-                      href={media.link.href}
-                      className="btn-social btn-outline"
-                    >
-                      <i className={media.fontawesome_class}></i>
-                    </a>
-                  </li>
-                )
-              })}
+              {footer.social.social_links.map((media, idx) => (
+                <li key={idx} className="sociallinks-li">
+                  <a
+                    href={media.link.href}
+                    className="btn-social btn-outline"
+                  >
+                    <i className={media.fontawesome_class} />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -37,5 +39,5 @@ const Footer = ({ footer }) => (
       </div>
     </div>
   </div>
-)
-export default Footer
+);
+export default Footer;

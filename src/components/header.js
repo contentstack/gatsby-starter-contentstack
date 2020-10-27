@@ -1,5 +1,9 @@
-import React from 'react'
-import { Link } from 'gatsby'
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable no-console */
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+import React from 'react';
+import { Link } from 'gatsby';
 
 const Header = ({ header }) => (
   <div className="header">
@@ -13,20 +17,18 @@ const Header = ({ header }) => (
       }}
     >
       <div className="display-flex">
-        {header.menu.map(function (nav, idx) {
-          return (
-            <Link
-              className="float-left margin-left"
-              to={nav.link.href}
-              key={idx}
-            >
-              {nav.link.title}
-            </Link>
-          )
-        })}
+        {header.menu.map((nav, idx) => (
+          <Link
+            className="float-left margin-left"
+            to={nav.link.href}
+            key={idx}
+          >
+            {nav.link.title}
+          </Link>
+        ))}
       </div>
     </div>
   </div>
-)
+);
 
-export default Header
+export default Header;
