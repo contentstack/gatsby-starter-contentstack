@@ -1,51 +1,37 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import { StaticQuery, graphql } from 'gatsby'
+/* eslint-disable react/prefer-stateless-function */
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+import React from 'react';
+import Helmet from 'react-helmet';
 
-import Header from './header'
-import './layout.css'
+import Header from './header';
+import Footer from './footer';
+import './layout.css';
 
-const Layout = ({ children }) => (
-  <StaticQuery
-    query={graphql`
-      query SiteTitleQuery {
-        site {
-          siteMetadata {
-            title
-          }
-        }
-      }
-    `}
-    render={data => (
+export default class Layout extends React.Component {
+  render() {
+    return (
       <>
-        <Helmet
-          title={data.site.siteMetadata.title}
-          meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
-          ]}
-        >
-          <html lang="en" />
-        </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          style={{
-            margin: '0 auto',
-            maxWidth: 960,
-            padding: '0px 1.0875rem 1.45rem',
-            paddingTop: 0,
-          }}
-        >
-          {children}
-        </div>
+        {this.props.seo ? (
+          <Helmet
+            title={this.props.seo.meta_title}
+            meta={[
+              { name: 'description', content: this.props.seo.description },
+              { name: 'keywords', content: this.props.seo.keywords },
+            ]}
+
+          >
+            <html lang="en" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" integrity="sha512-ZV9KawG2Legkwp3nAlxLIVFudTauWuBpC10uEafMHYL0Sarrz5A7G79kXh5+5+woxQ5HM559XX2UZjMJ36Wplg==" crossOrigin="anonymous" />
+          </Helmet>
+        ) : (
+          ''
+        )}
+        {this.props.header[0] ? <Header header={this.props.header[0]} /> : ''}
+        <main>{this.props.children}</main>
+        {this.props.footer[0] ? <Footer footer={this.props.footer[0]} /> : ''}
       </>
-    )}
-  />
-)
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+    );
+  }
 }
-
-export default Layout
