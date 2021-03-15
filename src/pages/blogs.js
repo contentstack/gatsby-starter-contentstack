@@ -5,6 +5,7 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import '../style/css/style.css';
 import Layout from '../components/layout';
+import { LocaleContext } from '../components/provider';
 
 function dateSetter(params) {
   const date = new Date(params);
@@ -17,51 +18,61 @@ function dateSetter(params) {
 const SecondPage = (props) => {
   const { data } = props;
   return (
-    <Layout
-      header={data.allContentstackHeader.nodes}
-      footer={data.allContentstackFooter.nodes}
-      seo={{
-        keywords: 'lists',
-        meta_title: 'Blogs Lists',
-        description: 'contains all blog posts',
-      }}
-    >
-      <div className="blogContainer">
-        <div className="bloglistContainer">
-          {data.allContentstackBlogPosts.nodes.map((list, idx) => (
-            <div className="blogs" key={idx}>
-              <div className="leftSection">
-                <div>
-                  <img
-                    src={list.hero_banner.banner_image.url}
-                    alt={list.hero_banner.banner_image.filename}
-                  />
+    <LocaleContext.Consumer>
+      {
+        (context) => {
+          const blogData = data.allContentstackBlogPosts.nodes
+            .filter((entry) => entry.locale === context.currentLocale);
+          return (
+            <Layout
+              header={data.allContentstackHeader.nodes}
+              footer={data.allContentstackFooter.nodes}
+              seo={{
+                keywords: 'lists',
+                meta_title: 'Blogs Lists',
+                description: 'contains all blog posts',
+              }}
+            >
+              <div className="blogContainer">
+                <div className="bloglistContainer">
+                  {blogData.map((list, idx) => (
+                    <div className="blogs" key={idx}>
+                      <div className="leftSection">
+                        <div>
+                          <img
+                            src={list.hero_banner.banner_image.url}
+                            alt={list.hero_banner.banner_image.filename}
+                          />
+                        </div>
+                      </div>
+                      <div className="rightSection">
+                        <h2>{list.title}</h2>
+                        <div>
+                          <span className="timeStamp">
+                            {dateSetter(list.created_at)}
+                          </span>
+                          ,
+                          <span className="post-author">{list.author[0].title}</span>
+                        </div>
+                        <p className="blogPost">
+                          {`${list.blog_body[0].rich_text_editor.rich_text.slice(
+                            3,
+                            150,
+                          )}...`}
+                        </p>
+                        <a className="postLink" href={`${list.url}`}>
+                          Read More
+                        </a>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="rightSection">
-                <h2>{list.title}</h2>
-                <div>
-                  <span className="timeStamp">
-                    {dateSetter(list.created_at)}
-                  </span>
-                  ,
-                  <span className="post-author">{list.author[0].title}</span>
-                </div>
-                <p className="blogPost">
-                  {`${list.blog_body[0].rich_text_editor.rich_text.slice(
-                    3,
-                    150,
-                  )}...`}
-                </p>
-                <a className="postLink" href={`${list.url}`}>
-                  Read More
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Layout>
+            </Layout>
+          );
+        }
+      }
+    </LocaleContext.Consumer>
   );
 };
 
@@ -73,6 +84,7 @@ export const pageQuery = graphql`
       nodes {
         title
         copyright
+        locale
         social {
           title
           social_links {
@@ -92,6 +104,7 @@ export const pageQuery = graphql`
     allContentstackHeader {
       nodes {
         title
+        locale
         menu {
           link {
             title
@@ -104,6 +117,7 @@ export const pageQuery = graphql`
       nodes {
         title
         url
+        locale
         hero_banner {
           banner_title
           banner_image {

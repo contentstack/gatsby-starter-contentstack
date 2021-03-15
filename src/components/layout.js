@@ -28,9 +28,9 @@ export default class Layout extends React.Component {
         ) : (
           ''
         )}
-        {this.props.header[0] ? <Header header={this.props.header[0]} /> : ''}
+        {this.props.header ? <Header header={this.props.header} /> : ''}
         <main>{this.props.children}</main>
-        {this.props.footer[0] ? <Footer footer={this.props.footer[0]} /> : ''}
+        {this.props.footer ? <Footer footer={this.props.footer} /> : ''}
       </>
     );
   }

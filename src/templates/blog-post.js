@@ -9,12 +9,14 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout';
 import 'react-responsive-carousel/lib/styles/carousel.css';
+import { LocaleContext } from '../components/provider';
 
 const { Carousel } = require('react-responsive-carousel');
 
 export default function Blogpost({ data }) {
   const result = data.contentstackBlogPosts;
-
+  const filteredBlogs = data.allContentstackBlogPosts.nodes
+    .filter((entry) => entry.url === result.url);
   function dateSetter(params) {
     const date = new Date(params);
     const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
@@ -74,96 +76,112 @@ export default function Blogpost({ data }) {
     );
   }
   return (
-    <Layout
-      header={data.allContentstackHeader.nodes}
-      footer={data.allContentstackFooter.nodes}
-      seo={result.seo}
-    >
-      <div className="blogContainer">
-        <div className="heroBanner">
-          <ul>
-            <li>
-              <img
-                src={result.hero_banner.banner_image.url}
-                className="bannerImage"
-                alt={result.hero_banner.banner_image.filename}
-              />
-              <div className="bannerContent">
-                <h1>{result.title}</h1>
-                <div>
-                  <span className="blogPostTimeStamp">
-                    {dateSetter(result.created_at)}
-                  </span>
-                  ,
-                  <span className="blogpost-author">{result.author[0].title}</span>
+    <LocaleContext.Consumer>
+      {
+        (context) => {
+          const localizedBlog = filteredBlogs.find((blog) => blog.locale === context.currentLocale);
+          return (
+            <Layout
+              header={data.allContentstackHeader.nodes}
+              footer={data.allContentstackFooter.nodes}
+              seo={localizedBlog.seo}
+            >
+              <div className="blogContainer">
+                <div className="heroBanner">
+                  <ul>
+                    <li>
+                      <img
+                        src={localizedBlog.hero_banner.banner_image.url}
+                        className="bannerImage"
+                        alt={localizedBlog.hero_banner.banner_image.filename}
+                      />
+                      <div className="bannerContent">
+                        <h1>{localizedBlog.title}</h1>
+                        <div>
+                          <span className="blogPostTimeStamp">
+                            {dateSetter(localizedBlog.created_at)}
+                          </span>
+                          ,
+                          <span className="blogpost-author">{localizedBlog.author[0].title}</span>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div className="blogContent">
+                  {localizedBlog.blog_body.map((post) => Object.entries(post).map((data, idx) => {
+                    if (data[0] === 'rich_text_editor' && data[1] !== null) {
+                      return createContent(data[1].rich_text, idx);
+                    }
+                    if (data[0] === 'image_carousel' && data[1] !== null) {
+                      return createCarousel(data[1].image, idx);
+                    }
+                    if (data[0] === 'quotes' && data[1] !== null) {
+                      return createQuotes(data[1].quote, idx);
+                    }
+                    if (data[0] === 'social_network' && data[1] !== null) {
+                      return createSocialNetwork(data[1].embedded_code, idx);
+                    }
+                  }))}
                 </div>
               </div>
-            </li>
-          </ul>
-        </div>
-        <div className="blogContent">
-          {result.blog_body.map((post) => Object.entries(post).map((data, idx) => {
-            if (data[0] === 'rich_text_editor' && data[1] !== null) {
-              return createContent(data[1].rich_text, idx);
-            }
-            if (data[0] === 'image_carousel' && data[1] !== null) {
-              return createCarousel(data[1].image, idx);
-            }
-            if (data[0] === 'quotes' && data[1] !== null) {
-              return createQuotes(data[1].quote, idx);
-            }
-            if (data[0] === 'social_network' && data[1] !== null) {
-              return createSocialNetwork(data[1].embedded_code, idx);
-            }
-          }))}
-        </div>
-      </div>
-    </Layout>
+            </Layout>
+          );
+        }
+      }
+    </LocaleContext.Consumer>
   );
 }
 export const postQuery = graphql`
   query($title: String!) {
-    contentstackBlogPosts(title: { eq: $title }) {
-      url
-      title
-      seo {
-        keywords
-        description
-        meta_title
-      }
-      hero_banner {
-        banner_title
-        banner_image {
-          url
-          filename
+    allContentstackBlogPosts {
+      nodes {
+        url
+        title
+        locale
+        seo {
+          meta_title
         }
-      }
-      blog_body {
-        image_carousel {
-          image {
+        hero_banner {
+          banner_title
+          banner_image {
             url
             filename
           }
         }
-        quotes {
-          quote
+        blog_body {
+          image_carousel {
+            image {
+              url
+              filename
+            }
+          }
+          quotes {
+            quote
+          }
+          rich_text_editor {
+            rich_text
+          }
+          social_network {
+            embedded_code
+          }
         }
-        rich_text_editor {
-          rich_text
-        }
-        social_network {
-          embedded_code
+        created_at(locale: "")
+        author {
+          title
         }
       }
-      created_at(locale: "")
-      author {
-        title
-      }
+    }
+    contentstackBlogPosts(title: { eq: $title }) {
+      url
+      title
+      locale
     }
     allContentstackFooter {
       nodes {
         title
         copyright
+        locale
         social {
           title
           social_links {
@@ -183,6 +201,7 @@ export const postQuery = graphql`
     allContentstackHeader {
       nodes {
         title
+        locale
         menu {
           link {
             title

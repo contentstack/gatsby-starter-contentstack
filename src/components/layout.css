@@ -688,6 +688,10 @@ pre code:before, pre code:after, pre tt:before, pre tt:after {
   margin-left: 30px;
 }
 
+.margin-right {
+  margin-right: 30px;
+}
+
 .article {
   display: inline-block;
   width: 48%;
