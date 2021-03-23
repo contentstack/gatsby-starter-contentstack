@@ -696,6 +696,11 @@ pre code:before, pre code:after, pre tt:before, pre tt:after {
   padding: 3px 45px 3px 10px;
 }
 
+.Dropdown-option > svg, .Dropdown-placeholder > svg {
+  width: 2rem;
+  padding-right: 0.8rem;
+}
+
 .article {
   display: inline-block;
   width: 48%;

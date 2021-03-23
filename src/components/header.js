@@ -8,9 +8,11 @@ import React from 'react';
 import { Link, navigate } from 'gatsby';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
+import Flags from 'country-flag-icons/react/3x2';
 
-const changeLanguage = (option, location) => {
+const changeLanguage = (option, location, lang) => {
   const path = location.pathname;
+  if (option.value === lang) return;
   if (option.value === 'en-us') {
     const localePattern = '/xx-xx';
     const sanitizedPath = path.length < localePattern.length ? '' : path.substring(localePattern.length, path.length);
@@ -45,11 +47,27 @@ const Header = ({ header, lang, location }) => (
       <div className="display-flex">
         <Dropdown
           options={[
-            { label: 'English', value: 'en-us' },
-            { label: 'Spanish', value: 'es-es' },
+            {
+              label: (
+                <>
+                  <Flags.US />
+                  English
+                </>
+              ),
+              value: 'en-us',
+            },
+            {
+              label: (
+                <>
+                  <Flags.ES />
+                  Spanish
+                </>
+              ),
+              value: 'es-es',
+            },
           ]}
           className="margin-right"
-          onChange={(option) => { changeLanguage(option, location); }}
+          onChange={(option) => { changeLanguage(option, location, lang); }}
           value={lang}
         />
       </div>
