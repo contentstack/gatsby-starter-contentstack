@@ -693,12 +693,7 @@ pre code:before, pre code:after, pre tt:before, pre tt:after {
 }
 
 .Dropdown-control {
-  padding: 3px 45px 3px 10px;
-}
-
-.Dropdown-option > svg, .Dropdown-placeholder > svg {
-  width: 2rem;
-  padding-right: 0.8rem;
+  padding: 3px 30px 3px 10px;
 }
 
 .article {
