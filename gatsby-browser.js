@@ -4,6 +4,3 @@
  *
  * See: https://www.gatsbyjs.org/docs/browser-apis/
  */
-import Provider from './src/components/provider';
-
-export const wrapRootElement = Provider;

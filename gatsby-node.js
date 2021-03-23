@@ -10,20 +10,26 @@ module.exports.createPages = async ({ graphql, actions }) => {
         nodes {
           title
           url
+          locale
         }
       }
     }
   `);
-  function createnewPage(path, comp, title) {
+  function createnewPage(path, comp, title, locale) {
     createPage({
       path: `${path}`,
       component: comp,
       context: {
         title,
+        locale,
       },
     });
   }
   result.data.allContentstackBlogPosts.nodes.forEach((node) => {
-    createnewPage(`${node.url}`, blogPostTemplate, node.title);
+    let lang = "";
+    if (node.locale !== 'en-us') {
+      lang = `/${node.locale}`;
+    }
+    createnewPage(`${lang}${node.url}`, blogPostTemplate, node.title, node.locale);
   });
 };

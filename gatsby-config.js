@@ -22,6 +22,15 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-i18n`,
+      options: {
+        langKeyDefault: 'en-us',
+        langKeyForNull: 'en-us',
+        prefixDefault: false,
+        useLangKeyLayout: false,
+      },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'gatsby-starter-contentstack',
