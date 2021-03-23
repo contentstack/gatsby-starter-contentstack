@@ -692,6 +692,10 @@ pre code:before, pre code:after, pre tt:before, pre tt:after {
   margin-right: 30px;
 }
 
+.Dropdown-control {
+  padding: 3px 45px 3px 10px;
+}
+
 .article {
   display: inline-block;
   width: 48%;

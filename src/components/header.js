@@ -6,6 +6,19 @@
 /* eslint-disable prefer-template */
 import React from 'react';
 import { Link, navigate } from 'gatsby';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+
+const changeLanguage = (option, location) => {
+  const path = location.pathname;
+  if (option.value === 'en-us') {
+    const localePattern = '/xx-xx';
+    const sanitizedPath = path.length < localePattern.length ? '' : path.substring(localePattern.length, path.length);
+    navigate(`${sanitizedPath}`);
+  } else {
+    navigate(`/${option.value}${path}`);
+  }
+};
 
 const Header = ({ header, lang, location }) => (
   <div className="header">
@@ -30,35 +43,15 @@ const Header = ({ header, lang, location }) => (
         ))}
       </div>
       <div className="display-flex">
-        <select
-          onChange={(evt) => {
-            const path = location.pathname;
-            if (evt.currentTarget.value === 'en-us') {
-              const localePattern = '/xx-xx';
-              const sanitizedPath = path.length < localePattern.length ? '' : path.substring(localePattern.length, path.length);
-              navigate(`${sanitizedPath}`);
-            } else {
-              navigate(`/${evt.currentTarget.value}${path}`);
-            }
-          }}
-          value={lang}
+        <Dropdown
+          options={[
+            { label: 'English', value: 'en-us' },
+            { label: 'Spanish', value: 'es-es' },
+          ]}
           className="margin-right"
-        >
-          {
-            [
-              { localeLabel: 'English', locale: 'en-us' },
-              { localeLabel: 'Spanish', locale: 'es-es' },
-            ]
-              .map((language) => (
-                <option
-                  key={language.locale}
-                  value={language.locale}
-                >
-                  {language.localeLabel}
-                </option>
-              ))
-          }
-        </select>
+          onChange={(option) => { changeLanguage(option, location); }}
+          value={lang}
+        />
       </div>
     </div>
   </div>
