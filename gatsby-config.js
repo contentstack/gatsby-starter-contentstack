@@ -42,13 +42,13 @@ module.exports = {
         icon: 'src/images/contentstack-logo.png', // This path is relative to the root of the site.
       },
     },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/src/`,
-      },
-    },
-    `gatsby-plugin-sharp`, `gatsby-transformer-sharp`,
+    // {
+    //   resolve: 'gatsby-source-filesystem',
+    //   options: {
+    //     path: `${__dirname}/src/`,
+    //   },
+    // },
+    // `gatsby-plugin-sharp`, `gatsby-transformer-sharp`,
     {
       resolve: 'gatsby-source-contentstack',
       options: {
@@ -57,14 +57,13 @@ module.exports = {
         environment: process.env.CONTENTSTACK_ENVIRONMENT,
         cdn: process.env.CONTENTSTACK_CDN ? process.env.CONTENTSTACK_CDN : '',
         // Optional: expediteBuild set this to either true or false
-        expediteBuild: false,
+        expediteBuild: true,
         // Optional: Specify true if you want to generate custom schema
         enableSchemaGeneration: true,
         // Optional: Specify a different prefix for types.
         // This is useful in cases where you have multiple instances
         // of the plugin to be connected to different stacks.
         type_prefix: 'Contentstack', // (default)
-        downloadImages: true,
       },
     },
   ],
