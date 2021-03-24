@@ -7,11 +7,11 @@ import Layout from './layout';
 
 const IndexContent = ({ lang, data, location }) => {
   const homeData = data.allContentstackHome.nodes
-    .find((entry) => entry.locale === lang);
+    .find((entry) => entry.publish_details.locale === lang);
   const headerData = data.allContentstackHeader.nodes
-    .find((entry) => entry.locale === lang);
+    .find((entry) => entry.publish_details.locale === lang);
   const footerData = data.allContentstackFooter.nodes
-    .find((entry) => entry.locale === lang);
+    .find((entry) => entry.publish_details.locale === lang);
   return (
     <Layout
       header={headerData}

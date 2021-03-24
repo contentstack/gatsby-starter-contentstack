@@ -16,7 +16,7 @@ export default function Blogpost({ data, location }) {
   const result = data.contentstackBlogPosts;
   const headerData = data.contentstackHeader;
   const footerData = data.contentstackFooter;
-  const lang = headerData.locale;
+  const lang = headerData.publish_details.locale;
   function dateSetter(params) {
     const date = new Date(params);
     const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
@@ -127,10 +127,12 @@ export default function Blogpost({ data, location }) {
 }
 export const postQuery = graphql`
   query($title: String!, $locale: String!) {
-    contentstackBlogPosts(title: { eq: $title }, locale: { eq: $locale}) {
+    contentstackBlogPosts(title: { eq: $title }, publish_details: {locale: { eq: $locale}}) {
       url
       title
-      locale
+      publish_details {
+        locale
+      }
       seo {
         meta_title
       }
@@ -163,10 +165,9 @@ export const postQuery = graphql`
         title
       }
     }
-    contentstackFooter(locale: { eq: $locale }) {
+    contentstackFooter(publish_details: {locale: { eq: $locale }}) {
       title
       copyright
-      locale
       social {
         title
         social_links {
@@ -177,19 +178,24 @@ export const postQuery = graphql`
           }
         }
       }
+      publish_details {
+        locale
+      }
       group {
         address
         title
       }
     }
-    contentstackHeader(locale: { eq: $locale }) {
+    contentstackHeader(publish_details: {locale: { eq: $locale }}) {
       title
-      locale
       menu {
         link {
           title
           href
         }
+      }
+      publish_details {
+        locale
       }
     }
   }

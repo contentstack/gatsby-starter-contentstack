@@ -15,7 +15,6 @@ export const pageQuery = graphql`
       nodes {
         title
         url
-        locale
         seo {
           meta_title
         }
@@ -27,13 +26,15 @@ export const pageQuery = graphql`
           title
           description
         }
+        publish_details {
+          locale
+        }
       }
     }
     allContentstackFooter {
       nodes {
         title
         copyright
-        locale
         social {
           title
           social_links {
@@ -48,17 +49,22 @@ export const pageQuery = graphql`
           address
           title
         }
+        publish_details {
+          locale
+        }
       }
     }
     allContentstackHeader {
       nodes {
         title
-        locale
         menu {
           link {
             title
             href
           }
+        }
+        publish_details {
+          locale
         }
       }
     }

@@ -16,11 +16,11 @@ function dateSetter(params) {
 
 const BlogsContent = ({ lang, data, location }) => {
   const blogData = data.allContentstackBlogPosts.nodes
-    .filter((entry) => entry.locale === lang);
+    .filter((entry) => entry.publish_details.locale === lang);
   const headerData = data.allContentstackHeader.nodes
-    .find((entry) => entry.locale === lang);
+    .find((entry) => entry.publish_details.locale === lang);
   const footerData = data.allContentstackFooter.nodes
-    .find((entry) => entry.locale === lang);
+    .find((entry) => entry.publish_details.locale === lang);
   return (
     <Layout
       header={headerData}

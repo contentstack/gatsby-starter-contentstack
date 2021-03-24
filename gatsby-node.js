@@ -11,6 +11,9 @@ module.exports.createPages = async ({ graphql, actions }) => {
           title
           url
           locale
+          publish_details {
+            locale
+          }
         }
       }
     }
@@ -27,9 +30,9 @@ module.exports.createPages = async ({ graphql, actions }) => {
   }
   result.data.allContentstackBlogPosts.nodes.forEach((node) => {
     let lang = "";
-    if (node.locale !== 'en-us') {
-      lang = `/${node.locale}`;
+    if (node.publish_details.locale !== 'en-us') {
+      lang = `/${node.publish_details.locale}`;
     }
-    createnewPage(`${lang}${node.url}`, blogPostTemplate, node.title, node.locale);
+    createnewPage(`${lang}${node.url}`, blogPostTemplate, node.title, node.publish_details.locale);
   });
 };

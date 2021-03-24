@@ -21,7 +21,6 @@ export const pageQuery = graphql`
       nodes {
         title
         copyright
-        locale
         social {
           title
           social_links {
@@ -32,6 +31,9 @@ export const pageQuery = graphql`
             }
           }
         }
+        publish_details {
+          locale
+        }
         group {
           address
           title
@@ -41,12 +43,14 @@ export const pageQuery = graphql`
     allContentstackHeader {
       nodes {
         title
-        locale
         menu {
           link {
             title
             href
           }
+        }
+        publish_details {
+          locale
         }
       }
     }
@@ -54,7 +58,6 @@ export const pageQuery = graphql`
       nodes {
         title
         url
-        locale
         hero_banner {
           banner_title
           banner_image {
@@ -70,6 +73,9 @@ export const pageQuery = graphql`
         created_at(formatString: "")
         author {
           title
+        }
+        publish_details {
+          locale
         }
       }
     }
