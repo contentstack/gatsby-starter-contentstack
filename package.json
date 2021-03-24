@@ -10,7 +10,7 @@
     "gatsby-plugin-offline": "3.6.0",
     "gatsby-plugin-react-helmet": " 3.6.0",
     "gatsby-plugin-sharp": "^2.10.0",
-    "gatsby-source-contentstack": "https://github.com/rkhare11/gatsby-source-contentstack#gatsby-internationalization-example",
+    "gatsby-source-contentstack": "^2.3.3",
     "gatsby-source-filesystem": "^2.7.0",
     "gatsby-transformer-sharp": "^2.8.0",
     "react": "^17.0.1",
