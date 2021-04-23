@@ -12,9 +12,11 @@ import 'react-responsive-carousel/lib/styles/carousel.css';
 
 const { Carousel } = require('react-responsive-carousel');
 
-export default function Blogpost({ data }) {
+export default function Blogpost({ data, location }) {
   const result = data.contentstackBlogPosts;
-
+  const headerData = data.contentstackHeader;
+  const footerData = data.contentstackFooter;
+  const lang = headerData.publish_details.locale;
   function dateSetter(params) {
     const date = new Date(params);
     const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
@@ -75,9 +77,11 @@ export default function Blogpost({ data }) {
   }
   return (
     <Layout
-      header={data.allContentstackHeader.nodes}
-      footer={data.allContentstackFooter.nodes}
+      header={headerData}
+      footer={footerData}
       seo={result.seo}
+      lang={lang}
+      location={location}
     >
       <div className="blogContainer">
         <div className="heroBanner">
@@ -122,13 +126,14 @@ export default function Blogpost({ data }) {
   );
 }
 export const postQuery = graphql`
-  query($title: String!) {
-    contentstackBlogPosts(title: { eq: $title }) {
+  query($title: String!, $locale: String!) {
+    contentstackBlogPosts(title: { eq: $title }, publish_details: {locale: { eq: $locale}}) {
       url
       title
+      publish_details {
+        locale
+      }
       seo {
-        keywords
-        description
         meta_title
       }
       hero_banner {
@@ -160,35 +165,37 @@ export const postQuery = graphql`
         title
       }
     }
-    allContentstackFooter {
-      nodes {
+    contentstackFooter(publish_details: {locale: { eq: $locale }}) {
+      title
+      copyright
+      social {
         title
-        copyright
-        social {
-          title
-          social_links {
-            fontawesome_class
-            link {
-              title
-              href
-            }
-          }
-        }
-        group {
-          address
-          title
-        }
-      }
-    }
-    allContentstackHeader {
-      nodes {
-        title
-        menu {
+        social_links {
+          fontawesome_class
           link {
             title
             href
           }
         }
+      }
+      publish_details {
+        locale
+      }
+      group {
+        address
+        title
+      }
+    }
+    contentstackHeader(publish_details: {locale: { eq: $locale }}) {
+      title
+      menu {
+        link {
+          title
+          href
+        }
+      }
+      publish_details {
+        locale
       }
     }
   }

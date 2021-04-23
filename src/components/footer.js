@@ -4,7 +4,6 @@
 import React from 'react';
 
 const Footer = ({ footer }) => (
-
   <div className="footer ">
     <div className="footer-above">
       <div className="container">
