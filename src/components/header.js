@@ -9,16 +9,26 @@ import { Link, navigate } from 'gatsby';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
+const masterLocaleCode = 'en-us';
+const langArray = [
+  { label: 'English', value: 'en-us' },
+  { label: 'Spanish', value: 'es-es' },
+];
 const changeLanguage = (option, location, lang) => {
   const path = location.pathname;
   if (option.value === lang) return;
-  if (option.value === 'en-us') {
-    const localePattern = '/xx-xx';
-    const sanitizedPath = path.length < localePattern.length ? '' : path.substring(localePattern.length, path.length);
-    navigate(`${sanitizedPath}`);
+  let sanitizedPath = '';
+  if (option.value !== masterLocaleCode) {
+    if (lang === masterLocaleCode) {
+      sanitizedPath = `/${option.value + path}`;
+    } else {
+      const pathWithoutLocale = `${path.substring(`/${lang}`.length, path.length)}`;
+      sanitizedPath = `/${option.value + pathWithoutLocale}`;
+    }
   } else {
-    navigate(`/${option.value}${path}`);
+    sanitizedPath = `${path.substring(`/${lang}`.length, path.length)}`;
   }
+  navigate(sanitizedPath);
 };
 
 const Header = ({ header, lang, location }) => (
@@ -45,10 +55,7 @@ const Header = ({ header, lang, location }) => (
       </div>
       <div className="display-flex">
         <Dropdown
-          options={[
-            { label: 'English', value: 'en-us' },
-            { label: 'Spanish', value: 'es-es' },
-          ]}
+          options={langArray}
           className="margin-right"
           onChange={(option) => { changeLanguage(option, location, lang); }}
           value={lang}

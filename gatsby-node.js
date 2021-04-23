@@ -29,7 +29,7 @@ module.exports.createPages = async ({ graphql, actions }) => {
     });
   }
   result.data.allContentstackBlogPosts.nodes.forEach((node) => {
-    let lang = "";
+    let lang = '';
     if (node.publish_details.locale !== 'en-us') {
       lang = `/${node.publish_details.locale}`;
     }
