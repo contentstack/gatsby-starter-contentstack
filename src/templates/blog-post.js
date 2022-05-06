@@ -15,13 +15,13 @@ const { Carousel } = require('react-responsive-carousel');
 export default function Blogpost({ data }) {
   const result = data.contentstackBlogPosts;
 
-  function dateSetter(params) {
+  /* function dateSetter(params) {
     const date = new Date(params);
     const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
     const mm = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
     const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
     return `${mm}-${dd}-${yy}`;
-  }
+  } */
 
   function createContent(text, idx) {
     return (
@@ -91,10 +91,6 @@ export default function Blogpost({ data }) {
               <div className="bannerContent">
                 <h1>{result.title}</h1>
                 <div>
-                  <span className="blogPostTimeStamp">
-                    {dateSetter(result.created_at)}
-                  </span>
-                  ,
                   <span className="blogpost-author">{result.author[0].title}</span>
                 </div>
               </div>
@@ -155,7 +151,6 @@ export const postQuery = graphql`
           embedded_code
         }
       }
-      created_at(locale: "")
       author {
         title
       }
