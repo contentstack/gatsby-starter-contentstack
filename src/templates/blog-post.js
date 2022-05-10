@@ -15,14 +15,6 @@ const { Carousel } = require('react-responsive-carousel');
 export default function Blogpost({ data }) {
   const result = data.contentstackBlogPosts;
 
-  /* function dateSetter(params) {
-    const date = new Date(params);
-    const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-    const mm = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
-    const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-    return `${mm}-${dd}-${yy}`;
-  } */
-
   function createContent(text, idx) {
     return (
       <div
