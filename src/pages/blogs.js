@@ -6,14 +6,6 @@ import { graphql } from 'gatsby';
 import '../style/css/style.css';
 import Layout from '../components/layout';
 
-function dateSetter(params) {
-  const date = new Date(params);
-  const yy = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);
-  const mm = new Intl.DateTimeFormat('en', { month: 'short' }).format(date);
-  const dd = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
-  return `${mm}-${dd}-${yy}`;
-}
-
 const SecondPage = (props) => {
   const { data } = props;
   return (
@@ -41,10 +33,6 @@ const SecondPage = (props) => {
               <div className="rightSection">
                 <h2>{list.title}</h2>
                 <div>
-                  <span className="timeStamp">
-                    {dateSetter(list.created_at)}
-                  </span>
-                  ,
                   <span className="post-author">{list.author[0].title}</span>
                 </div>
                 <p className="blogPost">
@@ -116,7 +104,6 @@ export const pageQuery = graphql`
             rich_text
           }
         }
-        created_at(formatString: "")
         author {
           title
         }
