@@ -11,7 +11,7 @@
     "gatsby-plugin-sharp": "4.13.0",
     "gatsby-plugin-image": "^2.10.1",
     "gatsby-source-contentstack": "^4.0.0",
-    "gatsby-source-filesystem": "4.13.0",
+    "gatsby-source-filesystem": "4.21.0",
     "gatsby-transformer-sharp": "4.13.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
